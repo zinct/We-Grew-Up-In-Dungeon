@@ -1,0 +1,18 @@
+{
+  "files.exclude": {
+    ".godot/": true,
+    "**/*.tmp": true,
+    "**/*.sln": true,
+    "**/*.csproj": true,
+    "**/*.gd": true, // Godot Script (GDScript)
+    "**/*.tscn": true, // Godot Scene
+    "**/*.tres": true, // Godot Resource
+    "**/*.import": true, // Godot Imported Resource
+    "**/*.shader": true, // Godot Shader
+    "**/*.material": true, // Godot Material
+    "**/*.theme": true, // Godot Theme
+    "**/*.cfg": true, // Godot Configuration
+    "**/*.gdns": true, // Godot NativeScript (GDNative)
+    "**/*.cs": false // C# Script
+  }
+}

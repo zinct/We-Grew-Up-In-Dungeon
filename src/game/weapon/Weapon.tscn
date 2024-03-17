@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn57fq3k8wiea"]
+
+[ext_resource type="Script" path="res://Weapon.gd" id="1_5v84a"]
+[ext_resource type="Texture2D" uid="uid://dbdiy465filnb" path="res://resources/art/frames/weapon_knife.png" id="2_j5iyy"]
+
+[node name="Weapon" type="Node2D"]
+script = ExtResource("1_5v84a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_j5iyy")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(702, 285)
+emitting = false
+amount = 17
+direction = Vector2(5.52, -1000)
+spread = 180.0
+gravity = Vector2(0, -100)
+initial_velocity_max = 108.43
+angular_velocity_min = -468.43
+angular_velocity_max = 399.04

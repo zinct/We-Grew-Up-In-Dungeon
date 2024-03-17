@@ -1,0 +1,238 @@
+[gd_scene load_steps=24 format=3 uid="uid://cpdwgd13s0wqo"]
+
+[ext_resource type="Script" path="res://src/game/character/player/scripts/Player.cs" id="1_7jqnx"]
+[ext_resource type="Texture2D" uid="uid://c1a0dxswcym8c" path="res://resources/art/frames/elf_m_idle_anim_f0.png" id="2_kvcse"]
+[ext_resource type="Texture2D" uid="uid://dlkm61ahklult" path="res://resources/art/sword-frame1.png" id="3_odjag"]
+[ext_resource type="Texture2D" uid="uid://couwrjw8k65lg" path="res://resources/art/frames/elf_m_idle_anim_f1.png" id="3_rr32r"]
+[ext_resource type="Texture2D" uid="uid://bnc404y8qttlg" path="res://resources/art/frames/elf_m_idle_anim_f2.png" id="4_c4mq5"]
+[ext_resource type="Texture2D" uid="uid://cqrcdt5uh51x8" path="res://resources/art/frames/elf_m_hit_anim_f0.png" id="4_xdq7i"]
+[ext_resource type="Texture2D" uid="uid://e7a7crhv7ku5" path="res://resources/art/sword-frame2.png" id="5_ao10h"]
+[ext_resource type="Texture2D" uid="uid://qn20kccbrw81" path="res://resources/art/frames/elf_m_idle_anim_f3.png" id="5_wydly"]
+[ext_resource type="Texture2D" uid="uid://2oalb8fk6dxi" path="res://resources/art/sword-frame3.png" id="6_xi3vf"]
+[ext_resource type="Texture2D" uid="uid://dye1hq8n2srtg" path="res://resources/art/frames/elf_m_run_anim_f0.png" id="6_y5bsn"]
+[ext_resource type="Texture2D" uid="uid://bgrsummsrh3fg" path="res://resources/art/sword-frame4.png" id="7_g57qi"]
+[ext_resource type="Texture2D" uid="uid://dqqw56d08ea5m" path="res://resources/art/frames/elf_m_run_anim_f1.png" id="7_sxf4c"]
+[ext_resource type="Texture2D" uid="uid://cl6wgpkjqfkco" path="res://resources/art/frames/elf_m_run_anim_f2.png" id="8_8nxfb"]
+[ext_resource type="Texture2D" uid="uid://bscm743olsocg" path="res://resources/art/frames/elf_m_run_anim_f3.png" id="9_dh7yl"]
+[ext_resource type="Script" path="res://src/game/character/player/scripts/PlayerAnimation.cs" id="10_y6jns"]
+[ext_resource type="PackedScene" uid="uid://dn57fq3k8wiea" path="res://src/game/weapon/Weapon.tscn" id="11_hph24"]
+[ext_resource type="Script" path="res://src/game/abstract/FiniteStateMachine.cs" id="17_iblsg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_thlgb"]
+size = Vector2(10, 12)
+
+[sub_resource type="Animation" id="Animation_a0a2m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_kvcse")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3.6, 3.6)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3.5, -2.25)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WeaponSprite2D:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_odjag")]
+}
+
+[sub_resource type="Animation" id="Animation_1u2vi"]
+resource_name = "attack"
+length = 0.30001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("4_xdq7i"), ExtResource("4_xdq7i")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponSprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_odjag"), ExtResource("5_ao10h"), ExtResource("6_xi3vf"), ExtResource("7_g57qi")]
+}
+
+[sub_resource type="Animation" id="Animation_bn8ko"]
+resource_name = "idle"
+length = 0.30001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_kvcse"), ExtResource("3_rr32r"), ExtResource("4_c4mq5"), ExtResource("5_wydly")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(3.6, 3.6), Vector2(3.6, 4.2), Vector2(3.6, 4.70002), Vector2(3.6, 3.60011)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -6.5), Vector2(0, -6.5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WeaponSprite2D:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_jx8tm"]
+resource_name = "running"
+length = 0.60001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [ExtResource("6_y5bsn"), ExtResource("7_sxf4c"), ExtResource("8_8nxfb"), ExtResource("9_dh7yl")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -6.5), Vector2(0, -6.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WeaponSprite2D:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mg6yn"]
+_data = {
+"RESET": SubResource("Animation_a0a2m"),
+"attack": SubResource("Animation_1u2vi"),
+"idle": SubResource("Animation_bn8ko"),
+"running": SubResource("Animation_jx8tm")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(4, 4)
+script = ExtResource("1_7jqnx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3.5, -2.25)
+scale = Vector2(1.16667, 1.16667)
+texture = ExtResource("2_kvcse")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_thlgb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mg6yn")
+}
+speed_scale = 0.8
+
+[node name="PlayerAnimation" type="Node" parent="."]
+script = ExtResource("10_y6jns")
+
+[node name="Weapon" parent="." instance=ExtResource("11_hph24")]
+position = Vector2(3.6, 3.6)
+
+[node name="WeaponSprite2D" type="Sprite2D" parent="."]
+position = Vector2(-11.5, 27.4724)
+scale = Vector2(2.36999, 1.72265)
+texture = ExtResource("3_odjag")
+offset = Vector2(10.2079, -18.2018)
+
+[node name="FiniteStateMachine" type="Node" parent="."]
+script = ExtResource("17_iblsg")
