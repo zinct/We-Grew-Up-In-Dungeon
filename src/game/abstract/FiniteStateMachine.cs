@@ -14,7 +14,6 @@ public partial class FiniteStateMachine : Node
     {
         _states = new Dictionary<string, State>();
 
-
         foreach (Node node in GetChildren())
         {
             if (node is State s)
@@ -26,8 +25,11 @@ public partial class FiniteStateMachine : Node
             }
         }
 
-        _currentState = GetNode<State>(initialState);
-        _currentState.Enter();
+        if(_currentState != null)
+        {
+            _currentState = GetNode<State>(initialState);
+            _currentState.Enter();
+        }
     }
 
     public void TransitionTo(String key)
@@ -42,16 +44,19 @@ public partial class FiniteStateMachine : Node
 
     public override void _Process(double delta)
     {
-        _currentState.Update(delta);
+        if(_currentState != null)
+            _currentState.Update(delta);
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        _currentState.PhysicsUpdate(delta);
+        if(_currentState != null)
+            _currentState.PhysicsUpdate(delta);
     }
     public override void _UnhandledInput(InputEvent @event)
     {
-        _currentState._UnhandledInput(@event);
+        if(_currentState != null)
+            _currentState._UnhandledInput(@event);
     }
 
 }

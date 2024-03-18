@@ -1,17 +1,14 @@
 using System.Diagnostics;
 using Godot;
 
-public partial class PlayerAnimation : Node
+public partial class PlayerAnimation : AnimationTree
 {
-	private AnimationPlayer _animationPlayer;
 	private CharacterBody2D _characterBody2D;
 	private Vector2 _latestDirection = Vector2.Zero;
 	
-	private enum AnimationState { Running, Idle };
-
 	public override void _Ready()
 	{
-		_animationPlayer = GetNode<AnimationPlayer>("../AnimationPlayer");
+		Set("parameters/conditions/is_idle", true);
 		_characterBody2D = GetParent<CharacterBody2D>();
 	}
 
@@ -21,65 +18,45 @@ public partial class PlayerAnimation : Node
 		float verticalDirection = Input.GetAxis("move_player_up", "move_player_down");
 
 		if(Input.IsKeyPressed(Key.P))
-		{
-			Debug.WriteLine("Key Pressed");
-			_animationPlayer.Play("attack");
-		}
+			SetAttack(true);
 
 		if(horizontalDirection != 0)
 		{
-			if(horizontalDirection > 0)
-			{
-				HandleRotatePlayer(Vector2.Right);
-			}
-			else
-			{
-				HandleRotatePlayer(Vector2.Left);
-			}
-
-			HandleAnimation(AnimationState.Running);
+			HandleRotatePlayer(horizontalDirection);
+			SetRunning(true);
 		}
 		else if(verticalDirection != 0)
 		{
-			HandleAnimation(AnimationState.Running);
+			SetRunning(true);
 		}
 		else
 		{
-			HandleAnimation(AnimationState.Idle);
+			SetIdle(true);
 		}
 	}
 
-	private void HandleAnimation(AnimationState state)
+	private void SetRunning(bool value)
 	{
-		if(_animationPlayer.CurrentAnimation == "attack") return;
-		if(state == AnimationState.Running)
-		{
-			if(_animationPlayer.CurrentAnimation != "running")
-			{
-				_animationPlayer.Play("running");
-			}
-		}
-		else
-		{
-			if(_animationPlayer.CurrentAnimation != "idle")
-			{
-				_animationPlayer.Play("idle");
-			}
-		}
+		Set("parameters/conditions/is_running", value);
+		Set("parameters/conditions/is_idle", !value);
 	}
 
-	private void HandleRotatePlayer(Vector2 direction)
+	public void SetAttack(bool value)
 	{
-		if(direction == Vector2.Right)
-		{
-			_characterBody2D.Scale = new Vector2(_characterBody2D.Scale.X, _characterBody2D.Scale.X);
-			_characterBody2D.RotationDegrees = 0f;
-		}
-		else if(direction == Vector2.Left)
-		{
-			_characterBody2D.Scale = new Vector2(_characterBody2D.Scale.X, Mathf.Abs( _characterBody2D.Scale.Y)  * -1);
-			_characterBody2D.RotationDegrees = 180f;
-		}
+		Set("parameters/conditions/is_attack", value);
+	}
+
+	private void SetIdle(bool value)
+	{
+		Set("parameters/conditions/is_running", !value);
+		Set("parameters/conditions/is_idle", value);
+	}
+
+	private void HandleRotatePlayer(float direction)
+	{
+		Set("parameters/attack/blend_position", direction);
+		Set("parameters/running/blend_position", direction);
+		Set("parameters/idle/blend_position", direction);
 	}
 }
 
