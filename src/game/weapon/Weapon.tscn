@@ -17,14 +17,3 @@ position = Vector2(-11.5, 27.4724)
 scale = Vector2(2.36999, 1.72265)
 texture = ExtResource("3_2n3xu")
 offset = Vector2(10.2079, -18.2018)
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(702, 285)
-emitting = false
-amount = 17
-direction = Vector2(5.52, -1000)
-spread = 180.0
-gravity = Vector2(0, -100)
-initial_velocity_max = 108.43
-angular_velocity_min = -468.43
-angular_velocity_max = 399.04

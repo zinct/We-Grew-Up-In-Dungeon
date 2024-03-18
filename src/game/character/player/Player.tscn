@@ -324,6 +324,7 @@ tracks/11/keys = {
 [sub_resource type="Animation" id="Animation_6g0vd"]
 resource_name = "idle_left"
 length = 0.30001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -424,6 +425,7 @@ tracks/7/keys = {
 [sub_resource type="Animation" id="Animation_bn8ko"]
 resource_name = "idle_right"
 length = 0.30001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -524,6 +526,7 @@ tracks/7/keys = {
 [sub_resource type="Animation" id="Animation_tncmy"]
 resource_name = "running_left"
 length = 0.30001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -612,6 +615,7 @@ tracks/6/keys = {
 [sub_resource type="Animation" id="Animation_jx8tm"]
 resource_name = "running_right"
 length = 0.30001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -757,38 +761,38 @@ advance_condition = &"is_idle"
 advance_mode = 2
 advance_condition = &"is_running"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ti1u3"]
-advance_mode = 2
-advance_condition = &"is_attack"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ysko4"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"is_idle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oi3sx"]
-advance_mode = 2
-advance_condition = &"is_attack"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_72nyv"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"is_running"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ubcph"]
 advance_mode = 2
 advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l3mkk"]
+advance_mode = 2
+advance_condition = &"is_attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sh5y3"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_odlcn"]
+advance_mode = 2
+advance_condition = &"is_attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wypb3"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_running"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dcnsb"]
 states/End/position = Vector2(684, 62)
 states/Start/position = Vector2(198, 62)
 states/attack/node = SubResource("AnimationNodeBlendSpace1D_pi6ov")
-states/attack/position = Vector2(439, 193)
+states/attack/position = Vector2(424, 170)
 states/idle/node = SubResource("AnimationNodeBlendSpace1D_b7g8e")
 states/idle/position = Vector2(323, 62)
 states/running/node = SubResource("AnimationNodeBlendSpace1D_280po")
 states/running/position = Vector2(536, 62)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_vhdpp"), "idle", "running", SubResource("AnimationNodeStateMachineTransition_88s0p"), "running", "attack", SubResource("AnimationNodeStateMachineTransition_ti1u3"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_ysko4"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_oi3sx"), "attack", "running", SubResource("AnimationNodeStateMachineTransition_72nyv"), "running", "idle", SubResource("AnimationNodeStateMachineTransition_ubcph")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_vhdpp"), "idle", "running", SubResource("AnimationNodeStateMachineTransition_88s0p"), "running", "idle", SubResource("AnimationNodeStateMachineTransition_ubcph"), "running", "attack", SubResource("AnimationNodeStateMachineTransition_l3mkk"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_sh5y3"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_odlcn"), "attack", "running", SubResource("AnimationNodeStateMachineTransition_wypb3")]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 scale = Vector2(4, 4)
@@ -797,7 +801,7 @@ script = ExtResource("1_7jqnx")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-2.38419e-07, -6.5)
 scale = Vector2(1.16667, 1.16667)
-texture = ExtResource("4_c4mq5")
+texture = ExtResource("3_rr32r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
@@ -821,7 +825,7 @@ parameters/conditions/is_idle = false
 parameters/conditions/is_running = false
 parameters/attack/blend_position = 0.0
 parameters/idle/blend_position = 0.0
-parameters/running/blend_position = 0
+parameters/running/blend_position = 0.0
 script = ExtResource("10_y6jns")
 
 [node name="Weapon" parent="." instance=ExtResource("11_hph24")]
@@ -829,7 +833,10 @@ position = Vector2(3.6, 3.6)
 
 [node name="Sprite2D" parent="Weapon" index="0"]
 visible = false
-position = Vector2(-0.0999997, -0.099999)
+position = Vector2(-0.0999997, 0.712517)
+
+[node name="SplashSprite2D" parent="Weapon" index="1"]
+texture = ExtResource("5_ao10h")
 
 [node name="FiniteStateMachine" type="Node" parent="."]
 script = ExtResource("17_iblsg")
