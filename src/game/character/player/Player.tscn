@@ -19,7 +19,7 @@
 [ext_resource type="Script" path="res://src/game/abstract/FiniteStateMachine.cs" id="17_iblsg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thlgb"]
-size = Vector2(10, 12)
+size = Vector2(10, 14.5)
 
 [sub_resource type="Animation" id="Animation_a0a2m"]
 length = 0.001
@@ -213,7 +213,7 @@ scale = Vector2(1.16667, 1.16667)
 texture = ExtResource("2_kvcse")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(3, 6)
 shape = SubResource("RectangleShape2D_thlgb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
