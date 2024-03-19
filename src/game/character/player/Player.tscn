@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cpdwgd13s0wqo"]
+[gd_scene load_steps=46 format=3 uid="uid://cpdwgd13s0wqo"]
 
 [ext_resource type="Script" path="res://src/game/character/player/scripts/Player.cs" id="1_7jqnx"]
 [ext_resource type="Texture2D" uid="uid://c1a0dxswcym8c" path="res://resources/art/frames/elf_m_idle_anim_f0.png" id="2_kvcse"]
@@ -17,6 +17,9 @@
 [ext_resource type="Script" path="res://src/game/character/player/scripts/PlayerAnimation.cs" id="10_y6jns"]
 [ext_resource type="PackedScene" uid="uid://dn57fq3k8wiea" path="res://src/game/weapon/Weapon.tscn" id="11_hph24"]
 [ext_resource type="Script" path="res://src/game/abstract/FiniteStateMachine.cs" id="17_iblsg"]
+[ext_resource type="Script" path="res://src/game/character/player/scripts/PlayerIdleState.cs" id="18_cwqsu"]
+[ext_resource type="Script" path="res://src/game/character/player/scripts/PlayerRunningState.cs" id="19_jjf5q"]
+[ext_resource type="Script" path="res://src/game/character/player/PlayerAttackState.cs" id="20_djefn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thlgb"]
 size = Vector2(10, 12)
@@ -794,14 +797,16 @@ states/running/node = SubResource("AnimationNodeBlendSpace1D_280po")
 states/running/position = Vector2(536, 62)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_vhdpp"), "idle", "running", SubResource("AnimationNodeStateMachineTransition_88s0p"), "running", "idle", SubResource("AnimationNodeStateMachineTransition_ubcph"), "running", "attack", SubResource("AnimationNodeStateMachineTransition_l3mkk"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_sh5y3"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_odlcn"), "attack", "running", SubResource("AnimationNodeStateMachineTransition_wypb3")]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["PlayerCharacterBody2D"]]
+position = Vector2(1, 0)
 scale = Vector2(4, 4)
 script = ExtResource("1_7jqnx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-2.38419e-07, -6.5)
 scale = Vector2(1.16667, 1.16667)
-texture = ExtResource("3_rr32r")
+texture = ExtResource("4_c4mq5")
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
@@ -833,12 +838,32 @@ position = Vector2(3.6, 3.6)
 
 [node name="Sprite2D" parent="Weapon" index="0"]
 visible = false
-position = Vector2(-0.0999997, 0.712517)
+position = Vector2(-0.0999997, -0.099999)
 
 [node name="SplashSprite2D" parent="Weapon" index="1"]
-texture = ExtResource("5_ao10h")
+offset = Vector2(-3.012, -18.202)
+flip_h = true
 
-[node name="FiniteStateMachine" type="Node" parent="."]
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("label")]
 script = ExtResource("17_iblsg")
+initialState = NodePath("Idle")
+label = NodePath("../Label")
+
+[node name="Idle" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("18_cwqsu")
+
+[node name="Running" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("19_jjf5q")
+
+[node name="Attack" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("20_djefn")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -22.0
+offset_top = -43.5
+offset_right = 27.0
+offset_bottom = -20.5
+text = "State: "
+metadata/_edit_use_anchors_ = true
 
 [editable path="Weapon"]

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Godot;
 using Godot.Collections;
 
@@ -6,6 +7,8 @@ public partial class FiniteStateMachine : Node
 {
     [Export]
     public NodePath initialState;
+    [Export]
+    public Label label;
 
     private State _currentState;
     private Dictionary<string, State> _states;
@@ -18,18 +21,15 @@ public partial class FiniteStateMachine : Node
         {
             if (node is State s)
             {
-                _states[node.Name] = s;
+                _states[node.Name.ToString().ToLower()] = s;
                 s.fsm = this;
                 s.Ready();
                 s.Exit();
             }
         }
 
-        if(_currentState != null)
-        {
-            _currentState = GetNode<State>(initialState);
-            _currentState.Enter();
-        }
+        _currentState = GetNode<State>(initialState);
+        _currentState.Enter();
     }
 
     public void TransitionTo(String key)
@@ -44,19 +44,17 @@ public partial class FiniteStateMachine : Node
 
     public override void _Process(double delta)
     {
-        if(_currentState != null)
-            _currentState.Update(delta);
+        label.Text = "State: " + _currentState.Name;
+        _currentState?.Update(delta);
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        if(_currentState != null)
-            _currentState.PhysicsUpdate(delta);
+        _currentState?.PhysicsUpdate(delta);
     }
     public override void _UnhandledInput(InputEvent @event)
     {
-        if(_currentState != null)
-            _currentState._UnhandledInput(@event);
+        _currentState?.UnhandledInput(@event);
     }
 
 }
