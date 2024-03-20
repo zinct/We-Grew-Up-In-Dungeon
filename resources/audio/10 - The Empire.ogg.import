@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://6l23tafu2qwr"
+path="res://.godot/imported/10 - The Empire.ogg-b6d4e60689e5138ac3fb556b33f543bf.oggvorbisstr"
+
+[deps]
+
+source_file="res://resources/audio/10 - The Empire.ogg"
+dest_files=["res://.godot/imported/10 - The Empire.ogg-b6d4e60689e5138ac3fb556b33f543bf.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

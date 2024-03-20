@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://ct6x0x408hm3e"]
+
+[ext_resource type="Texture2D" uid="uid://chpabycujqlcs" path="res://resources/art/frames/1.png" id="1_gpjdx"]
+[ext_resource type="Script" path="res://src/game/entities/character/Enemy.cs" id="1_s1aqe"]
+[ext_resource type="Script" path="res://src/game/abstract/FiniteStateMachine.cs" id="3_surj7"]
+[ext_resource type="Script" path="res://src/game/states/enemy/EnemyIdleState.cs" id="4_ey2w5"]
+[ext_resource type="Script" path="res://src/game/states/enemy/EnemyHitState.cs" id="5_e4idb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dcebd"]
+size = Vector2(6.16666, 7.33333)
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("label")]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_s1aqe")
+label = NodePath("Label")
+health = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_gpjdx")
+
+[node name="CharacterCollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dcebd")
+
+[node name="FiniteStateMachine" type="Node" parent="."]
+script = ExtResource("3_surj7")
+
+[node name="Idle" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("4_ey2w5")
+
+[node name="Casing" type="Node" parent="FiniteStateMachine"]
+
+[node name="Hit" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("5_e4idb")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -37.3333
+offset_top = -52.6667
+offset_right = 22.6667
+offset_bottom = -29.6667
+text = "Health: "

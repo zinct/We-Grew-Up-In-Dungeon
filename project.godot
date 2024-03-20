@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Grew Up In The Dungeon"
-run/main_scene="res://test.tscn"
+run/main_scene="res://src/world/level/test.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 
 [display]
@@ -53,6 +53,14 @@ player_attack={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":80,"physical_keycode":0,"key_label":0,"unicode":80,"echo":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Default"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="Weapon"
+2d_physics/layer_5="World"
 
 [rendering]
 

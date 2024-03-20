@@ -5,56 +5,67 @@ using Godot.Collections;
 
 public partial class FiniteStateMachine : Node
 {
-    [Export]
-    public NodePath initialState;
-    [Export]
-    public Label label;
+	[Export]
+	public NodePath initialState;
 
-    private State _currentState;
-    private Dictionary<string, State> _states;
+	[Signal]
+	public delegate void TransitionChangedEventHandler(State previousState, State nextState);
 
-    public override void _Ready()
-    {
-        _states = new Dictionary<string, State>();
+	// Private
+	public State _currentState;
+	public State previousState;
+	private Dictionary<string, State> _states;
 
-        foreach (Node node in GetChildren())
-        {
-            if (node is State s)
-            {
-                _states[node.Name.ToString().ToLower()] = s;
-                s.fsm = this;
-                s.Ready();
-                s.Exit();
-            }
-        }
+	public override void _Ready()
+	{
+		_states = new Dictionary<string, State>();
 
-        _currentState = GetNode<State>(initialState);
-        _currentState.Enter();
-    }
+		foreach (Node node in GetChildren())
+		{
+			if (node is State s)
+			{
+				_states[node.Name.ToString().ToLower()] = s;
+				s.fsm = this;
+				s.Ready();
+				s.Exit();
+			}
+		}
 
-    public void TransitionTo(String key)
-    {
-        if (!_states.ContainsKey(key) || _currentState == _states[key])
-            return;
+		_currentState = GetNode<State>(initialState);
+		_currentState.Enter();
+	}
 
-        _currentState.Exit();
-        _currentState = _states[key];
-        _currentState.Enter();
-    }
+	public void TransitionTo(String key, dynamic args = null)
+	{
+		previousState = _currentState;
+		if (!_states.ContainsKey(key) || _currentState == _states[key])
+			return;
 
-    public override void _Process(double delta)
-    {
-        label.Text = "State: " + _currentState.Name;
-        _currentState?.Update(delta);
-    }
+		_currentState.Exit();
+		_currentState = _states[key];
+		_currentState.Enter();
 
-    public override void _PhysicsProcess(double delta)
-    {
-        _currentState?.PhysicsUpdate(delta);
-    }
-    public override void _UnhandledInput(InputEvent @event)
-    {
-        _currentState?.UnhandledInput(@event);
-    }
+		// Emit Signal
+		EmitSignal(SignalName.TransitionChanged, previousState, _currentState);
+	}
 
+	public override void _Process(double delta)
+	{
+		_currentState?.Update(delta);
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		_currentState?.PhysicsUpdate(delta);
+	}
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		_currentState?.UnhandledInput(@event);
+	}
 }
+
+
+
+
+
+
