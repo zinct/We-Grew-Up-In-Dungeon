@@ -3,8 +3,7 @@ using System;
 
 public interface IDamagable
 {
-    [Signal]
-    delegate void DamageReceivedEventHandler();
+    event EventHandler onDamageReceived;
 
     void Hit(float damage);
 }

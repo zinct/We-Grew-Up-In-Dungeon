@@ -3,23 +3,23 @@ using System;
 
 public partial class Debug : Node
 {
-	[Export] 
-	private Label _debugLabel;
-	[Export] 
-	private FiniteStateMachine _fsm;
-	[Export] 
-	private AnimationTree _animationTree;
+	// [Export] 
+	// private Label _debugLabel;
+	// [Export] 
+	// private FiniteStateMachine _fsm;
+	// [Export] 
+	// private AnimationTree _animationTree;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+	// // Called when the node enters the scene tree for the first time.
+	// public override void _Ready()
+	// {
+	// }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		_debugLabel.Text = 
-		"State: " + _fsm._currentState.Name
-		;
-	}
+	// // Called every frame. 'delta' is the elapsed time since the previous frame.
+	// public override void _Process(double delta)
+	// {
+	// 	_debugLabel.Text = 
+	// 	"State: " + _fsm._currentState.Name
+	// 	;
+	// }
 }

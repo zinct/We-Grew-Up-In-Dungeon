@@ -1,20 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://ct6x0x408hm3e"]
+[gd_scene load_steps=8 format=3 uid="uid://ct6x0x408hm3e"]
 
 [ext_resource type="Texture2D" uid="uid://chpabycujqlcs" path="res://resources/art/frames/1.png" id="1_gpjdx"]
-[ext_resource type="Script" path="res://src/game/entities/character/Enemy.cs" id="1_s1aqe"]
+[ext_resource type="Script" path="res://src/game/entities/Enemy.cs" id="1_s1aqe"]
 [ext_resource type="Script" path="res://src/core/FSM/FiniteStateMachine.cs" id="3_surj7"]
 [ext_resource type="Script" path="res://src/game/states/enemy/EnemyIdleState.cs" id="4_ey2w5"]
 [ext_resource type="Script" path="res://src/game/states/enemy/EnemyHitState.cs" id="5_e4idb"]
+[ext_resource type="Script" path="res://EnemyDebug.cs" id="6_gtg3j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dcebd"]
 size = Vector2(6.16666, 7.33333)
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("label")]
+[node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_s1aqe")
-label = NodePath("Label")
-health = 100.0
+_health = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -34,9 +34,11 @@ script = ExtResource("4_ey2w5")
 [node name="Hit" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("5_e4idb")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." node_paths=PackedStringArray("_enemy")]
 offset_left = -37.3333
 offset_top = -52.6667
 offset_right = 22.6667
 offset_bottom = -29.6667
 text = "Health: "
+script = ExtResource("6_gtg3j")
+_enemy = NodePath("..")

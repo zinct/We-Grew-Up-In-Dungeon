@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cpdwgd13s0wqo"]
+[gd_scene load_steps=47 format=3 uid="uid://cpdwgd13s0wqo"]
 
 [ext_resource type="Texture2D" uid="uid://c1a0dxswcym8c" path="res://resources/art/frames/elf_m_idle_anim_f0.png" id="2_kvcse"]
 [ext_resource type="Texture2D" uid="uid://dlkm61ahklult" path="res://resources/art/sword-frame1.png" id="3_odjag"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cl6wgpkjqfkco" path="res://resources/art/frames/elf_m_run_anim_f2.png" id="8_8nxfb"]
 [ext_resource type="Texture2D" uid="uid://bscm743olsocg" path="res://resources/art/frames/elf_m_run_anim_f3.png" id="9_dh7yl"]
 [ext_resource type="PackedScene" uid="uid://dn57fq3k8wiea" path="res://scenes/weapon/Weapon.tscn" id="11_hph24"]
+[ext_resource type="Script" path="res://src/game/entities/PlayerAnimationManager.cs" id="14_ck1go"]
 [ext_resource type="Script" path="res://src/core/FSM/FiniteStateMachine.cs" id="15_f80re"]
 [ext_resource type="Script" path="res://src/game/states/player/PlayerIdleState.cs" id="18_cwqsu"]
 [ext_resource type="Script" path="res://src/game/states/player/PlayerRunningState.cs" id="19_jjf5q"]
@@ -1044,6 +1045,7 @@ parameters/conditions/is_running = false
 parameters/attack/blend_position = 0.0
 parameters/idle/blend_position = 0.173832
 parameters/running/blend_position = -1.0
+script = ExtResource("14_ck1go")
 
 [node name="Weapon" parent="." instance=ExtResource("11_hph24")]
 position = Vector2(3.6, 3.6)
