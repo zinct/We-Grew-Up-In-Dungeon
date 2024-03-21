@@ -2,11 +2,21 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Godot",
+      "name": "Launch Windows",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
       "program": "C://Users/Indra Mahesa/Downloads/Godot_v4.2.1-stable_mono_win64/Godot_v4.2.1-stable_mono_win64/Godot_v4.2.1-stable_mono_win64.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false
+    },
+    {
+      "name": "Launch MacOS",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "/Applications/Godot.app/Contents/MacOS/Godot",
       "args": [],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false

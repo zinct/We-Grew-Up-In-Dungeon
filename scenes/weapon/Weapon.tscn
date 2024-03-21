@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dn57fq3k8wiea"]
 
-[ext_resource type="Script" path="res://src/game/entities/weapon/Weapon.cs" id="1_vlfhc"]
+[ext_resource type="Script" path="res://src/game/components/DamageComponent.cs" id="1_wanhh"]
 [ext_resource type="Texture2D" uid="uid://dbdiy465filnb" path="res://resources/art/frames/weapon_knife.png" id="2_j5iyy"]
 [ext_resource type="Texture2D" uid="uid://dlkm61ahklult" path="res://resources/art/sword-frame1.png" id="3_2n3xu"]
 
@@ -9,7 +9,7 @@
 [node name="Weapon" type="Area2D"]
 collision_layer = 8
 collision_mask = 4
-script = ExtResource("1_vlfhc")
+script = ExtResource("1_wanhh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708

@@ -1,7 +1,6 @@
 using Godot;
 using System;
 
-public partial class Player : Node, IHealthable
+public partial class Player : Node
 {
-    public float health { get => health; set => health = value; }
 }
